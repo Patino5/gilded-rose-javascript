@@ -18,14 +18,42 @@ export class BasicItem extends Item {
   }
 }
 
+export class Passes extends Item {
+  constructor(name, sellIn, quality) {
+    super(name, sellIn, quality)
+  }
+
+  passesQuality(){
+    if (this.quality < 50){
+      this.quality += 1
+      if (this.sellIn < 11) {
+        if (this.quality < 50) {
+          this.quality += 1;
+        }
+      }
+      if (this.sellIn < 6) {
+        if (this.quality < 50) {
+          this.quality += 1;
+        }
+      } 
+    }
+    if (this.sellIn === 0) {
+      this.sellIn = 0
+      this.quality = 0
+    }
+    console.log('passes');
+  }
+}
+
 export let items = [];
-const dexterityVest = new BasicItem("+5 Dexterity Vest", 10, 20)
-items.push(dexterityVest);
+
+items.push(new BasicItem("+5 Dexterity Vest", 10, 20));
 
 items.push(new Item("Aged Brie", 2, 0));
 items.push(new BasicItem("Elixir of the Mongoose", 5, 7));
 items.push(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
-items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
+const passes = new Passes("Backstage passes to a TAFKAL80ETC concert", 15, 20)
+items.push(passes);
 items.push(new BasicItem("Conjured Mana Cake", 3, 6));
 
 export const updateQuality = () => {
@@ -45,20 +73,22 @@ export const updateQuality = () => {
       if (item.quality < 50) {
         item.quality = item.quality + 1;
         if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-          if (item.sellIn < 11) {
-            if (item.quality < 50) {
-              item.quality += 1;
-            }
-          }
-          if (item.sellIn < 6) {
-            if (item.quality < 50) {
-              item.quality += 1;
-            }
-          } 
-          if (item.sellIn === 0) {
-            item.sellIn = 0
-            item.quality = 0
-          }
+          items[4].passesQuality()
+          // if (item.sellIn < 11) {
+          //   if (item.quality < 50) {
+          //     item.quality += 1;
+          //   }
+          // }
+          // if (item.sellIn < 6) {
+          //   if (item.quality < 50) {
+          //     item.quality += 1;
+          //   }
+          // } 
+          // if (item.sellIn === 0) {
+          //   item.sellIn = 0
+          //   item.quality = 0
+          // }
+
         }
       }
     }
@@ -85,6 +115,15 @@ export const updateQuality = () => {
     
   };
 }
-// console.log(dexterityVest.BasicReduce());
-// console.log(dexterityVest);
+console.log(items[0]);
+items[0].BasicReduce()
+console.log(items[0]);
+
+// console.log(items[0].BasicReduce());
+// console.log();
 // console.log(items);
+console.log(items[4]);
+items[4].passesQuality()
+console.log(items[4]);
+
+// console.log(items[4].passesQuality());
